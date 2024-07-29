@@ -28,11 +28,19 @@
                         </ul>
                     </li>
 
+
+
+
                     {{-- Settings option menu  --}}
                     <li>
                         <div class="sidebar-small-cap">Extra</div>
                     </li>
 
+                    <li>
+                        <a href="{{ route('admin.category.all-category') }}" class="dropdown-toggle no-arrow  {{ request()->routeIs('admin.category.all-category') ? 'active' : '' }}">
+                            <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Category</span>
+                        </a>
+                    </li>
 
                     <li>
                         <a href="{{ route('admin.backup.all-backup') }}" class="dropdown-toggle no-arrow  {{ request()->routeIs('admin.backup.all-backup') ? 'active' : '' }}">

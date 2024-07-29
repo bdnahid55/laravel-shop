@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\CategoryController;
 
 
 // ---------------------------- sample template view --------------------------------------
@@ -56,6 +57,17 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         Route::post('admins/update-admins/{id}', 'update')->name('admins.update-admins'); // update process
         Route::get('admins/delete-admins/{id}', 'destroy')->name('admins.delete-admins'); // delete process
     });
+
+    // Route for category create
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/category/categories', 'index')->name('category.all-category');
+        Route::get('/category/fetch-categorys', 'fetchcategorys');
+        Route::post('/category/categories', 'store');
+        Route::get('/category/edit-category/{id}', 'edit');
+        Route::put('/category/update-category/{id}', 'update');
+        Route::delete('/category/delete-category/{id}', 'destroy');
+    });
+
 
 
     // End

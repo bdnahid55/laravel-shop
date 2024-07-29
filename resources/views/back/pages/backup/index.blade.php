@@ -6,33 +6,6 @@
     <div class="row clearfix">
         <div class="col-md-12 mb-30">
             <div class="card-body">
-                <!-- alert -->
-                <?php if( Session::get('success') != null){ ?>
-
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <div class="alert-icon">
-                        <i class="icon-check"></i>
-                    </div>
-                    <div class="alert-message">
-                        <span><strong><?php echo Session::get('success'); ?> </strong></span>
-                    </div>
-                </div>
-                <?php Session::put('success',null); } ?>
-
-                <?php if( Session::get('failed') != null){ ?>
-
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <div class="alert-icon">
-                        <i class="icon-close"></i>
-                    </div>
-                    <div class="alert-message">
-                        <span><strong><?php echo Session::get('failed'); ?> </strong></span>
-                    </div>
-                </div>
-                <?php Session::put('failed',null); } ?>
-                <!-- end alert -->
 
                 {{-- alert message --}}
                 <div id="success_message"></div>
@@ -40,8 +13,8 @@
                 <div class="card card-box">
                     <div class="card-header">
                         <h4>All backup List
-                            <a href="{{ route('admin.backup.delete-backup') }}" class="btn btn-danger float-right btn-sm">Delete Backups</a>
-                            <a href="{{ route('admin.backup.create-new-backup') }}" class="btn btn-success float-right btn-sm">Create new Backup</a>
+                            <a href="{{ route('admin.backup.delete-backup') }}" class="btn btn-danger float-end btn-sm">Delete Backups</a>
+                            <a href="{{ route('admin.backup.create-new-backup') }}" class="btn btn-success float-end btn-sm">Create new Backup</a>
                         </h4>
                     </div>
 
