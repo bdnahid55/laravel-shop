@@ -14,8 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         // add all middleware here
 		$middleware->alias([
             'admin' => \App\Http\Middleware\Authenticate::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
-		
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

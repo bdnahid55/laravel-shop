@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 // use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
@@ -100,7 +100,7 @@ class AdminController extends Controller
 
     public function show($id)
     {
-        $preview_admin = Admin::findorFail($id);
+        $preview_admin = Admin::find($id);
 
         if ($preview_admin) {
             // echo '<pre>';
@@ -112,14 +112,14 @@ class AdminController extends Controller
                 'message' => 'Data not found.',
                 'alert-type' => 'error'
             );
-            return redirect()->back()->with($notification);
+            return redirect()->route('admin.admins.all')->with($notification);
         }
         // End of code
     }
 
     public function edit($id)
     {
-        $admin_data = Admin::findorFail($id);
+        $admin_data = Admin::find($id);
 
         if ($admin_data) {
             // echo '<pre>';
@@ -131,7 +131,7 @@ class AdminController extends Controller
                 'message' => 'Data not found.',
                 'alert-type' => 'error'
             );
-            return redirect()->back()->with($notification);
+            return redirect()->route('admin.admins.all')->with($notification);
         }
         // End of code
     }
@@ -142,7 +142,7 @@ class AdminController extends Controller
         $check_valid = $request->validate([
             'name' => 'required|min:3',
             'username' => 'required|min:2',
-            'email' => 'required|min:5|email',
+            'email' => 'required|min:5|email|unique:admins,email,'.$id.',id',
             'password' => 'required|max:50',
             'image' => 'image|mimes:jpeg,png,gif,jpg|max:2048',
         ]);
@@ -209,7 +209,7 @@ class AdminController extends Controller
                     'message' => 'Data update failed.',
                     'alert-type' => 'error'
                 );
-                return redirect()->back()->with($notification);
+                return redirect()->route('admin.admins.all')->with($notification);
             }
         }
         // End of code
@@ -218,12 +218,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         // delete previous file
-        $findFile = Admin::findorFail($id);
+        $findFile = Admin::find($id);
         if ($findFile->image != null) {
             unlink(public_path('/uploads/admin/' . $findFile->image));
         }
 
-        $result = Admin::findorFail($id)->delete();
+        $result = Admin::find($id)->delete();
 
         if ($result) {
             $notification = array(
@@ -236,7 +236,7 @@ class AdminController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->back()->with($notification);
+        return redirect()->route('admin.admins.all')->with($notification);
         // End of code
     }
 
